@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+    <div class="register">
+        <h1>Register</h1>
+        <div class="links">
+            <a href="{{ url_for('loginform') }}">Login</a>
+            <a href="/registro" class="active">Register</a>
+        </div>
+        <h6 style="color: red;">{{message}}</h6>
+        <form action="/registro" method="POST" autocomplete="off">
+            <label for="username">
+                <i class="fas fa-user"></i>
+            </label>
+            <input type="text" name="name" id="name" placeholder="Nombre">
+            <label for="password">
+                <i class="fas fa-lock"></i>
+            </label>
+            <input type="text" name="contrasenna" id="contrasenna" placeholder="contraseña">
+            <label for="email">
+                <i class="fas fa-envelope"></i>
+            </label>
+            <input type="text" name="correo" id="correo" placeholder="correo">
+
+            <input type="submit" value="New">
+        </form>
+    </div>
+</body>
+
+</html>

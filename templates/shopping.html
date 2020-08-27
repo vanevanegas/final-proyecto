@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+
+    <br><br><br>
+    <div id="pagina">
+        <header>Carrito de Compras</header>
+    </div>
+
+    <br><br>
+    <div id="subtexto_2" style="width: 64%; float:left">
+        <texto1>Mi carrito</texto1>
+        <p>
+            <hr width=100% align="left">
+        <p>
+            {% for Carrito in dataCarrito %}
+        <div class="column column--50-25">
+            <p class="recetas_descripcion">{{Carrito[0]}}</p>
+
+        </div>
+        {% endfor %}
+        <p>
+            <hr width=100% align="left">
+        <p>
+    </div>
+
+    <div id="subtexto_2" style="width: 28%; float:right">
+        <texto2>Resumen del pedido</texto2>
+        <p>
+            <hr width=100% align="right">
+        <p>
+
+        <div id="datos_compra">
+            <d1>Subtotal</d1>
+            <d2>{{total}}</d2>
+            <br><br>
+            <d2>Envío estimado:</d2>
+            <d2>{{session["precio"]}} dolares</d2>
+
+        </div>
+        <p>
+            <hr width=100% align="right">
+        <p>
+
+            <total>Total</total>
+
+            {% if session["user"] %}
+        <div class="boton">
+            <button class="button3" onclick="location.href='/checkout'" type="button"><i
+                    class="fas fa-shopping-bag"></i> Finalizar la compra</button>
+        </div>
+        {%else%}
+        <div class="boton">
+            <button class="button3" onclick="location.href='/loginform'" type="button"><i
+                    class="fas fa-shopping-bag"></i> Regístrate y finaliza compra!</button>
+        </div>
+        {%endif%}
+
+    </div>
+
+
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+</style>
+
+</html>

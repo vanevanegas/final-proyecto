@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+    <div id="titulo">
+        <tema face="Century Gothic">COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+        
+    </div>
+
+    <br><br><br>
+    <div id="pagina">
+        <p>Ingredientes</p>
+        
+        <div id="datos_compra">
+            {% if session["role"] == "Admin"%}
+                <button class="button" onclick="location.href='/ingresarIngrediente'" type="button"><i class='fas fa-edit'></i>
+                Ingrese su nuevo ingrediente</button>
+                <br><br>
+            {% endif%}
+            <form action="/ingredientes" method="POST">
+                <input type="text" name="search" class="searchTerm" placeholder="Que ingrediente desea?" id="search"
+                    required>
+                <input type="submit" name="search" class="searchTerm" value="Buscar">
+            </form>
+            <hr width=95% align="left">
+
+
+
+            <section class="ingrediente">
+                <br><br>
+                <div class="container">
+                    {% for Ingrediente in dataIngredientes2 %}
+                        <div id="subtexto_2">
+                            <p>{{Ingrediente[1]}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${{Ingrediente[3]}}</p>
+                        </div>
+
+                        <div id="datos_compra">
+                            <p>
+                                {{Ingrediente[2]}}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="button2"><i class="fas fa-shopping-cart"></i> Agregar al Carrito</button>
+                            </p>
+                        </div>
+                        <br>
+                    {% endfor %}
+                <br><br><br><br>
+
+
+        </div>
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+</style>
+
+</html>

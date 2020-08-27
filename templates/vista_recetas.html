@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+    <br><br><br>
+
+    <form action="/vista_recetas/{{id}}" method="POST">
+        <section class="V_recetas">
+            <div id="datos_compra">
+                {% for Recetas in dataRecetas %}
+
+                <div id="pagina">{{Recetas[1]}}</div>
+                <h4 class="tipo_RECETAS">{{Recetas[3]}}</h4>
+                <br>
+
+                <div id="subtexto_3"> Descripción </div>
+                <br>
+                {{Recetas[2]}}
+                <br><br><br>
+                <div class="slideshow-container">
+                    <br>
+                    <iframe width="1000" height="562.5" src="{{Recetas[4]}}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
+                <br><br><br>
+                <div id="subtexto_3"> Comprar ingredientes </div>
+
+                {% if session["role"] == "Admin"%}
+                <br>
+                <button class="button" onclick="location.href='/agregarIngredientesARecetas/{{Recetas[0]}}'"
+                    type="button"><i class='fas fa-pencil-alt'></i> Modifique los ingredientes de esta receta
+                </button>
+                {% endif%}
+
+                <br><br><br>
+
+                {% for Ingrediente in dataIngredientes %}
+
+                <div style="width: 50%; float:left">
+
+                    <input type="checkbox" name="ingredientes" value="{{Ingrediente[0]}}">{{Ingrediente[1]}}
+
+                    <div style="width: 40%; float: right">
+                        <p>$ {{Ingrediente[2]}}</p>
+                    </div>
+
+                </div>
+
+                {%endfor%}
+                {%endfor%}
+                <div style="width: 88%; float:left">
+                    <br><br><br><br><br>
+                    <div class="boton">
+                        <button class="button3" type="submit"><i class="fas fa-shopping-cart"></i> Agregar ingredientes
+                            al carrito </button>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+    </form>
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+</style>
+
+</html>

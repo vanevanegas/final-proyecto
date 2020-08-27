@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+
+    <br><br><br>
+    <div id="pagina">
+        <button class="button4" onclick="location.href='/profile'" type="button"> Perfil</button> |
+        <button class="button4" onclick="location.href='/pedidos'" type="button"> Pedidos</button>
+    </div>
+
+    <br><br><br>
+    <div id="subtexto_2">
+        <texto1>Mis pedidos</texto1> <i class="fas fa-user-circle"></i>
+        <hr width=95% align="left" />
+    </div>
+    <form action="/recetas">
+        <section class="recetas">
+            <br><br>
+            <div class="container">
+                {% for pedidos in dataPedidos %}
+                <div id="subtexto_3">
+                    <p>Número: {{pedidos[0]}}</p>
+                </div>
+
+                <div id="datos_compra">
+                    <p>
+                        &nbsp; &nbsp; &nbsp; &nbsp; Fecha: {{pedidos[2]}}<br>
+                        &nbsp; &nbsp; &nbsp; &nbsp; Total: ${{pedidos[4]}}<br>
+                        &nbsp; &nbsp; &nbsp; &nbsp; Dirección de envío: {{pedidos[5]}}<br>
+                        &nbsp; &nbsp; &nbsp; &nbsp; Productos:</br>
+                    </p>
+                    {% for productos in dataproductos %}
+                    {% for i in pedidos %}
+                    {% set h =  loop.index %}
+                    <p>{{productos[h]}}</p>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                <hr width=80% align="left" style="border-top: dotted 1.7px; color: #a8a8a8b2;" />
+                {% endfor %}
+            </div>
+        </section>
+    </form>
+</body>
+<style>
+    .datos_compra {
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        height: 30px;
+        padding: 5px;
+        width: 250px;
+    }
+
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+
+
+    .dato_seguridad {
+        border: 1px dotted #000000;
+        border-radius: 0;
+        width: 50px;
+    }
+</style>
+
+</html>

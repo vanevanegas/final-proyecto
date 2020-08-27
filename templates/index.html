@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+
+    <br><br><br><br><br><br><br>
+    <div id="bienvenido">
+        <header>BIENVENIDO A</header>
+        <br>
+        <header>COCINA DE APOLO</header>
+    </div>
+
+    <br><br><br><br>
+    <div id="subtexto_1">
+        <texto1> Curioso por los sabores </texto1>
+    </div>
+
+    <br><br>
+    <div id="parrafo">
+        <t1>Bienvenido a la cocina de Apolo, un blog original que busca ayudarte con ideas fáciles de comida. Acá mismo
+        </t1>
+        <br>
+        <t2>encontrarás todos los ingredientes que necesites. Sigue leyendo y disfruta!</t2>
+        <br>
+    </div>
+
+    <br><br><br><br>
+    <div class="slideshow-container">
+
+        <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='Slide1F.jpg') }}" style="width:100%" />
+        </div>
+
+        <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='Slide2F.jpg') }}" style="width:100%" />
+        </div>
+
+        <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='Slide3F.jpg') }}" style="width:100%" />
+        </div>
+
+    </div>
+
+    <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <br>
+    {% if session["user"] %}
+        
+    {%else%}    
+        <div class="boton">
+            <button class="button3" onclick="location.href='/loginform'" type="button"> Suscríbete!</button>
+        </div>
+    {%endif%}
+    
+    <script>
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 4000); // Change image every 4 seconds
+        }
+    </script>
+
+    <br><br><br><br>
+
+
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+</style>
+
+</html>

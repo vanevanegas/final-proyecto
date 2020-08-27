@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+<body>
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+
+    <br><br><br>
+    <div id="pagina">
+        <header>Finalizar pedido</header>
+    </div>
+
+    <br><br>
+    <div id="subtexto_3" class="row">
+    <form action="/checkout" method="POST">
+        <div class="column left" >
+            <t1>Información de envío <i class='fas fa-truck'></i> </t1>
+            <p>
+                <hr width=90% align="left">
+            <p>
+
+            <div id="datos_compra">
+
+                <br>
+                <nombre>Nombres </nombre>
+                <br>
+                <input type="text" name="nombre" id="nombre" class="datos1" value="{{session["nombre"]}}">
+
+                <br><br>
+                <apellido>Apellidos </apellido>
+                <br>
+                <input type="text" name="apellido" id="apellido" class="datos1" value="{{session[ "apellido" ]}}">
+
+                <br><br>
+                <direccion>Dirección</direccion>
+                <br>
+                <input type="text" name="direccion" id="direccion" class="datos1" value="{{session[ "direccion" ]}}">
+
+                <br><br>
+                <ciudad>Ciudad</ciudad>
+                <br>
+                <input type="text" name="ciudad" id="ciudad" class="datos1" value="{{session["ciudad"]}}">
+
+                <br><br>
+                <departamento>Departamento</departamento>
+                <br>
+                    <select name="departamento" id="departamento">
+                        <option value="Ahuachapán" {% if session["departamento"] == "Ahuachapán" %} selected {% endif%}>
+                            Ahuachapán
+                        </option>
+                        <option value="Cabañas" {% if session["departamento"] == "Cabañas" %} selected {% endif%}>Cabañas
+                        </option>
+                        <option value="Chalatenango" {% if session["departamento"] == "Chalatenango" %} selected {% endif%}>
+                        Chalatenango
+                        </option>
+                        <option value="Cuscatlán" {% if session["departamento"] == "Cuscatlán" %} selected {% endif%}>Cuscatlán
+                        </option>
+                        <option value="La Libertad" {% if session["departamento"] == "La Libertad" %} selected {% endif%}>La
+                            Libertad
+                        </option>
+                        <option value="La Paz" {% if session["departamento"] == "La Paz" %} selected {% endif%}>La Paz
+                        </option>
+                        <option value="La Unión" {% if session["departamento"] == "La Unión" %} selected {% endif%}>La Unión
+                        </option>
+                        <option value="Morazán" {% if session["departamento"] == "Morazán" %} selected {% endif%}>Morazán
+                        </option>
+                        <option value="San Miguel" {% if session["departamento"] == "San Miguel" %} selected {% endif%}>San
+                            Miguel
+                        </option>
+                        <option value="San Salvador" {% if session["departamento"] == "San Salvador" %} selected {% endif%}>San
+                            Salvador
+                        </option>
+                        <option value="San Vicente" {% if session["departamento"] == "San Vicente" %} selected {% endif%}>San
+                            Vicente
+                        </option>
+                        <option value="Santa Ana" {% if session["departamento"] == "Santa Ana" %} selected {% endif%}>Santa Ana
+                        </option>
+                        <option value="Sonsonate" {% if session["departamento"] == "Sonsonate" %} selected {% endif%}>Sonsonate
+                        </option>
+                        <option value="Usulután" {% if session["departamento"] == "Usulután" %} selected {% endif%}>Usulután
+                        </option>
+                    </select>
+            </div>
+        </div>
+  
+        <div class="column middle">
+            <t2>Información de pago <i class='fas fa-money-check'></i> </t2>
+            <p>
+                <hr width=90% align="left">
+            <p>
+            <div id="datos_compra">
+                <br>
+                <nombreT>Nombre en la tarjeta</nombreT>
+                <br>
+                <input type="text" name="nombre_tarjeta" id="nombre_tarjeta" class="datos1"
+                    value="{{session["nombre_tarjeta"]}}">
+
+                <br><br>
+                <tarjeta>Número de tarjeta</tarjeta>
+                <br>
+                <input type="text" name="num_tarjeta" id="num_tarjeta" class="datos" value="{{session["num_tarjeta"]}}">
+
+                <br><br>
+                <div id="datos_compra" style="width: 50%; float:left">
+                <i class='far fa-calendar-alt'></i>
+                <fecha>Fecha de vencimiento</fecha>
+                <br>
+                <MM>MM </MM>
+                <select name="mes_venc" id="mes_venc">
+                    <option value="01" {% if session["mes_venc"] == "01" %} selected {% endif%}>01</option>
+                    <option value="02" {% if session["mes_venc"] == "02" %} selected {% endif%}>02</option>
+                    <option value="03" {% if session["mes_venc"] == "03" %} selected {% endif%}>03</option>
+                    <option value="04" {% if session["mes_venc"] == "04" %} selected {% endif%}>04</option>
+                    <option value="05" {% if session["mes_venc"] == "05" %} selected {% endif%}>05</option>
+                    <option value="06" {% if session["mes_venc"] == "06" %} selected {% endif%}>06</option>
+                    <option value="07" {% if session["mes_venc"] == "07" %} selected {% endif%}>07</option>
+                    <option value="08" {% if session["mes_venc"] == "08" %} selected {% endif%}>08</option>
+                    <option value="09" {% if session["mes_venc"] == "09" %} selected {% endif%}>09</option>
+                    <option value="10" {% if session["mes_venc"] == "10" %} selected {% endif%}>10</option>
+                    <option value="11" {% if session["mes_venc"] == "11" %} selected {% endif%}>11</option>
+                    <option value="12" {% if session["mes_venc"] == "12" %} selected {% endif%}>12</option>
+                </select>
+
+                <YY>YY </YY>
+                <select name="anno_venc" id="anno_venc">
+                    <option value="21" {% if session["anno_venc"] == "21" %} selected {% endif%}>21</option>
+                    <option value="22" {% if session["anno_venc"] == "22" %} selected {% endif%}>22</option>
+                    <option value="23" {% if session["anno_venc"] == "23" %} selected {% endif%}>23</option>
+                    <option value="24" {% if session["anno_venc"] == "24" %} selected {% endif%}>24</option>
+                    <option value="25" {% if session["anno_venc"] == "25" %} selected {% endif%}>25</option>
+                    <option value="26" {% if session["anno_venc"] == "26" %} selected {% endif%}>26</option>
+                    <option value="27" {% if session["anno_venc"] == "27" %} selected {% endif%}>27</option>
+                    <option value="28" {% if session["anno_venc"] == "28" %} selected {% endif%}>28</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="datos_compra" style="width: 28%; float:left">
+            <cvv>CVV</cvv>
+            <br>
+            <input type="text" name="cvv" id="cvv" class="dato_seguridad" value="{{session["cvv"]}}">
+        </div>
+        </div>
+  
+        <div class="column right">
+            <t3>Resumen del pedido </t3>
+            <p>
+                <hr width=100% align="left">
+            <p>
+                
+            <div id="datos_compra">
+                <d1>Subtotal</d1>
+                <br><br>
+                <d2>Envío</d2>
+            </div>
+            <p>
+                <hr width=100% align="left">
+            <p>
+
+            <total>Total</total>
+
+            <br>
+            <div id="datos_compra">
+                
+                <input type="checkbox" id="cbox1" name="cbox1" value="checked">
+                <label for="cbox1"> Guardar datos para futuras compras</label><br>
+            </div>
+            <br>
+
+
+                <div class="boton">
+                    <button class="button3" type="submit" onclick="location.href='/recibo'"><i class='fas fa-clipboard-check'></i> Confirmar compra </button>
+                </div>
+
+        </div>
+    </form>
+    </div>
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+
+    .column {
+        float: left; 
+    }
+
+    .left{
+        width: 40%;
+    }
+
+    .right{
+        width: 20%;
+    }
+
+    .middle {
+        width: 40%;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>COCINA DE APOLO</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+
+<body>
+    <div id="titulo">
+        <tema>COCINA DE APOLO</tema>
+    </div>
+
+    <br><br>
+
+    <div class="botones">
+        <button class="button" onclick="location.href='/'" type="button">Inicio</button>
+        <button class="button" onclick="location.href='/recetas'" type="button">Recetas</button>
+        <button class="button" onclick="location.href='/ingredientes'" type="button">Ingredientes</button>
+    </div>
+
+
+    <div class="iconos">
+        {% if session["user"] %}
+        <button class="button2" onclick="location.href='/profile'" type="button">
+            <i class="fas fa-user-circle"></i></button>
+        <button class="button2" onclick="location.href='/logout'" type="button">
+            <i class="fas fa-sign-out-alt"></i></button>
+        {%else%}
+        <button class="button2" onclick="location.href='/loginform'" type="button">
+            <i class="fas fa-sign-in-alt"></i></button>
+        {% endif%}
+        <button class="button2" onclick="location.href='/carreta'" type="button"><i
+                class="fa fa-shopping-basket"></i></button>
+    </div>
+
+    <br><br><br>
+    <div id="pagina">
+        <p>Recetas</p>
+        {% if session["role"] == "Admin"%}
+        <button class="button" onclick="location.href='/ingresarReceta'" type="button"><i class='fas fa-edit'></i>
+            Ingresar nueva receta</button>
+        <br>
+        {% endif%}
+    </div>
+    <hr width=95% align="left">
+    <br><br>
+
+    <form action="/recetas">
+        <div id="datos_compra">
+            {% for Recetas in dataRecetas %}
+            <div style="width: 50%; float:left">
+                <a href="/vista_recetas/{{Recetas[0]}}"> <img src="static/images/{{Recetas[5]}}" width=130 height=130 />
+                <div style="width: 75%; float:right"
+                    <button class="button5" onclick="location.href='/vista_recetas/{{Recetas[0]}}'" type="button">{{Recetas[1]}}</button>
+                    <br><br>
+                    {{Recetas[2]}}
+                </div>
+                <br><br><br>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+    <br><br><br><br>
+
+
+</body>
+
+<style>
+    body {
+        margin-right: 110px;
+        margin-left: 110px;
+    }
+</style>
+
+</html>
